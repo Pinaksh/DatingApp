@@ -21,6 +21,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
+            //Implemented threading
             return await _context.Users.ToListAsync();
         }
 
