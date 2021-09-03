@@ -29,14 +29,26 @@ export class AccountService {
     )
   }
 
+  register(model:any){
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((user: User) => {
+        if(user){
+          localStorage.setItem('user', JSON.stringify(user));
+          return this.currentUserSource.next(user);
+        }
+      })
+    )
+  }
+
   setCurrentUser(user:User)
   {
+    //console.log(user);
     this.currentUserSource.next(user);
   }
 
   logout()
   {
     localStorage.removeItem('user');
-    this.currentUserSource.next();
+    this.currentUserSource.next(null);
   }
 }
